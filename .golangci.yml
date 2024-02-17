@@ -1,0 +1,6 @@
+# https://golangci-lint.run/usage/configuration/
+# https://golangci-lint.run/usage/linters/
+linters:
+  enable:
+    - gofumpt
+    - goimports
