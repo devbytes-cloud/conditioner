@@ -188,14 +188,14 @@ func (o *ConditionOptions) Run() error {
 	jsonPath := []interface{}{patch}
 	bytePatch, err := json.Marshal(jsonPath)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	if _, err := o.client.CoreV1().Nodes().Patch(context.Background(), node.Name, types.JSONPatchType, bytePatch, metav1.PatchOptions{}, "status"); err != nil {
-		fmt.Println(err)
+		return err
 	}
 
-	fmt.Println(fmt.Sprintf("condition status %s has been %sed on node %s", o.condition.Type, patch.OP, node.Name))
+	fmt.Printf("condition status %s has been %sed on node %s\n", o.condition.Type, patch.OP, node.Name)
 
 	return nil
 }
