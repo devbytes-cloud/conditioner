@@ -87,6 +87,7 @@ docker_manifests:
       - "devbytescloud/kubectl-condition:{{ .Tag }}-amd64"
       - "devbytescloud/kubectl-condition:{{ .Tag }}-arm64v8"
   - id: kubectl-condition-ghcr
+    name_template: "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}"
     image_templates:
       - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-amd64"
       - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-arm64v8"
