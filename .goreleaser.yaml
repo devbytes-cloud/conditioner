@@ -81,15 +81,12 @@ dockers:
       - "--label=org.opencontainers.image.source={{ .GitURL }}"
 
 docker_manifests:
-  - id: kubectl-condition-ghcr
+  - id: kubectl-condition-docker
     name_template: "devbytescloud/kubectl-condition:{{ .Tag }}"
     image_templates:
       - "devbytescloud/kubectl-condition:{{ .Tag }}-amd64"
       - "devbytescloud/kubectl-condition:{{ .Tag }}-arm64v8"
-      - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-amd64"
-      - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-arm64v8"
-  - id: kubectl-condition-docker
-    name_template: "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}"
+  - id: kubectl-condition-ghcr
     image_templates:
       - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-amd64"
       - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-arm64v8"
