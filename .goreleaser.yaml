@@ -51,3 +51,45 @@ release:
   github:
     owner: devbytes-cloud
     name: conditioner
+
+dockers:
+  - image_templates:
+      - "devbytescloud/kubectl-condition:{{ .Tag }}-amd64"
+      - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-amd64"
+    use: buildx
+    dockerfile: Dockerfile
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--label=org.opencontainers.image.created={{ .Date }}"
+      - "--label=org.opencontainers.image.name={{ .ProjectName }}"
+      - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--label=org.opencontainers.image.source={{ .GitURL }}"
+
+  - image_templates:
+      - "devbytescloud/kubectl-condition:{{ .Tag }}-arm64v8"
+      - "gcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-arm64v8"
+    use: buildx
+    goarch: arm64
+    dockerfile: Dockerfile
+    build_flag_templates:
+      - "--platform=linux/arm64/v8"
+      - "--label=org.opencontainers.image.created={{ .Date }}"
+      - "--label=org.opencontainers.image.name={{ .ProjectName }}"
+      - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--label=org.opencontainers.image.source={{ .GitURL }}"
+
+docker_manifests:
+  - id: kubectl-condition-ghcr
+    name_template: "devbytescloud/kubectl-condition:{{ .Tag }}"
+    image_templates:
+      - "devbytescloud/kubectl-condition:{{ .Tag }}-amd64"
+      - "devbytescloud/kubectl-condition:{{ .Tag }}-arm64v8"
+      - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-amd64"
+      - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-arm64v8"
+  - id: kubectl-condition-docker
+    name_template: "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}"
+    image_templates:
+      - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-amd64"
+      - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-arm64v8"
