@@ -68,7 +68,7 @@ dockers:
 
   - image_templates:
       - "devbytescloud/kubectl-condition:{{ .Tag }}-arm64v8"
-      - "gcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-arm64v8"
+      - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-arm64v8"
     use: buildx
     goarch: arm64
     dockerfile: Dockerfile
