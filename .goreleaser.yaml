@@ -91,3 +91,22 @@ docker_manifests:
     image_templates:
       - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-amd64"
       - "ghcr.io/devbytes-cloud/kubectl-condition:{{ .Tag }}-arm64v8"
+
+brews:
+  -
+    name: conditioner
+
+    commit_author:
+      name: David Dymko
+      email: dymkod@gmail.com
+
+    folder: Formula
+    homepage: "https://github.com/devbytes-cloud/conditioner"
+    description: "Conditioner plugin allows you to add, update, or remove conditions on Kubernetes nodes"
+    license: "Apache-2.0 license"
+
+    repository:
+      owner: devbytes-cloud
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.GORELEASER_AUTH_TOKEN }}"
