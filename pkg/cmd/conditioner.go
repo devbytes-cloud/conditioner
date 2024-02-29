@@ -19,16 +19,16 @@ import (
 var (
 	example = `
 # Add a new condition to a node
-kubectl condition my-node --type Ready --status true --reason KubeletReady --message "kubelet is posting ready status"
+kubectl conditioner my-node --type Ready --status true --reason KubeletReady --message "kubelet is posting ready status"
 
 # Update an existing condition on a node
-kubectl condition my-node --type DiskPressure --status false --reason KubeletHasNoDiskPressure --message "kubelet has sufficient disk space available"
+kubectl conditioner my-node --type DiskPressure --status false --reason KubeletHasNoDiskPressure --message "kubelet has sufficient disk space available"
 
 # Remove a condition from a node
-kubectl condition my-node --type NetworkUnavailable --remove
+kubectl conditioner my-node --type NetworkUnavailable --remove
 `
 
-	long = `The 'condition' command allows you to add, update, or remove status conditions on nodes. 
+	long = `The 'conditioner' command allows you to add, update, or remove status conditions on nodes. 
 You need to provide the node name as an argument and use flags to specify the details of the condition. 
 The '--type' flag is required and it specifies the type of condition you wish to interact with. 
 The '--status' flag sets the status for the specific status condition and it can be 'true', 'false', or left blank for 'unknown'. 
@@ -73,7 +73,7 @@ func NewCmdCondition(streams genericiooptions.IOStreams) *cobra.Command {
 	o := NewConditionOptions(streams)
 
 	cmd := &cobra.Command{
-		Use:          "condition [node name] [flags]",
+		Use:          "conditioner [node name] [flags]",
 		Short:        "Manipulate status conditions on a specified node.",
 		Long:         long,
 		Example:      example,
