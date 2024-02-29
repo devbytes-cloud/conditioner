@@ -20,9 +20,9 @@ This `kubectl` plugin allows you to add, update, or remove conditions on Kuberne
 To install the plugin, download the binary and make it executable:
 
 ```bash
-curl -LO [YOUR_PLUGIN_BINARY_URL]
-chmod +x ./kubectl-condition
-mv ./kubectl-condition /usr/local/bin
+curl -LO https://github.com/devbytse-cloud/conditioner/releases/download/{{ .Tag }}/{{ .ArtifactName }}
+chmod +x ./kubectl-conditioner
+mv ./kubectl-conditioner /usr/local/bin
 ```
 
 ## Usage
@@ -30,11 +30,11 @@ mv ./kubectl-condition /usr/local/bin
 The general syntax for using the plugin is as follows:
 
 ```
-kubectl condition [NODE_NAME] [FLAGS]
+kubectl conditioner [NODE_NAME] [FLAGS]
 ```
 
 ```shell
-kubectl condition -h
+kubectl conditioner -h
 The 'condition' command allows you to add, update, or remove status conditions on nodes.
 You need to provide the node name as an argument and use flags to specify the details of the condition.
 The '--type' flag is required and it specifies the type of condition you wish to interact with.
@@ -44,18 +44,18 @@ The '--message' flag sets the message for the specific status condition.
 If you wish to remove the condition from the node entirely, use the '--remove' flag.
 
 Usage:
-  condition [node name] [flags]
+  conditioner [node name] [flags]
 
 Examples:
 
 # Add a new condition to a node
-kubectl condition my-node --type Ready --status true --reason KubeletReady --message "kubelet is posting ready status"
+kubectl conditioner my-node --type Ready --status true --reason KubeletReady --message "kubelet is posting ready status"
 
 # Update an existing condition on a node
-kubectl condition my-node --type DiskPressure --status false --reason KubeletHasNoDiskPressure --message "kubelet has sufficient disk space available"
+kubectl conditioner my-node --type DiskPressure --status false --reason KubeletHasNoDiskPressure --message "kubelet has sufficient disk space available"
 
 # Remove a condition from a node
-kubectl condition my-node --type NetworkUnavailable --remove
+kubectl conditioner my-node --type NetworkUnavailable --remove
 
 
 Flags:
@@ -91,19 +91,19 @@ Flags:
 - **Add a new condition** to a node:
 
   ```
-  kubectl condition my-node --type Ready --status true --reason KubeletReady --message "kubelet is posting ready status"
+  kubectl conditioner my-node --type Ready --status true --reason KubeletReady --message "kubelet is posting ready status"
   ```
 
 - **Update an existing condition** on a node:
 
   ```
-  kubectl condition my-node --type DiskPressure --status false --reason KubeletHasNoDiskPressure --message "kubelet has sufficient disk space available"
+  kubectl conditioner my-node --type DiskPressure --status false --reason KubeletHasNoDiskPressure --message "kubelet has sufficient disk space available"
   ```
 
 - **Remove a condition** from a node:
 
   ```
-  kubectl condition my-node --type NetworkUnavailable --remove
+  kubectl conditioner my-node --type NetworkUnavailable --remove
   ```
 
 ### Flags
@@ -119,10 +119,10 @@ Flags:
 To build the plugin from source, you'll need Go installed. Clone the repository and run:
 
 ```bash
-go build -o kubectl-condition ./cmd
+go build -o kubectl-conditioner ./cmd
 ```
 
-This command will create a binary named `kubectl-condition` in your current directory.
+This command will create a binary named `kubectl-conditioner` in your current directory.
 
 ## Contributing
 
