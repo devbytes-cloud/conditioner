@@ -17,6 +17,7 @@ This `kubectl` plugin allows you to add, update, or remove conditions on Kuberne
 
 ## Installation
 
+### Manual 
 To install the plugin, download the binary and make it executable:
 
 ```bash
@@ -24,6 +25,32 @@ curl -LO https://github.com/devbytse-cloud/conditioner/releases/download/{{ .Tag
 chmod +x ./kubectl-conditioner
 mv ./kubectl-conditioner /usr/local/bin
 ```
+
+### Homebrew
+
+To install conditioner via homebrew you can use our tap.
+
+```bash
+brew tap devbytes-cloud/tap
+brew install conditioner
+```
+
+or
+
+```bash
+brew install devbytes-cloud/tap/conditioner
+```
+
+### Docker
+
+The docker image uses bitnami kubectl as its base. This means you have full access to kubectl and conditioner.
+To yous the conditioner you just need to supply `conditioner` as your first input into the docker container
+
+```bash
+docker run devbytescloud/conditioner conditioner
+```
+
+The images can be found https://hub.docker.com/repository/docker/devbytescloud/conditioner
 
 ## Usage
 
