@@ -54,8 +54,8 @@ release:
 
 dockers:
   - image_templates:
-      - "devbytescloud/kubectl-conditioner:{{ .Tag }}-amd64"
-      - "ghcr.io/devbytes-cloud/kubectl-conditioner:{{ .Tag }}-amd64"
+      - "devbytescloud/conditioner:{{ .Tag }}-amd64"
+      - "ghcr.io/devbytes-cloud/conditioner:{{ .Tag }}-amd64"
     use: buildx
     dockerfile: Dockerfile
     build_flag_templates:
