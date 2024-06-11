@@ -6,8 +6,7 @@ before:
 
 
 builds:
-  -
-    id: "conditioner"
+  - id: "conditioner"
     main: "./cmd/"
     binary: "kubectl-conditioner"
 
@@ -93,8 +92,7 @@ docker_manifests:
       - "ghcr.io/devbytes-cloud/conditioner:{{ .Tag }}-arm64v8"
 
 brews:
-  -
-    name: conditioner
+  - name: conditioner
 
     commit_author:
       name: David Dymko
@@ -112,3 +110,15 @@ brews:
       name: homebrew-tap
       branch: main
       token: "{{ .Env.GORELEASER_AUTH_TOKEN }}"
+
+krews:
+  - name: conditioner
+    url_template: "https://github.com/devbytes-cloud/conditioner/releases/{{ .Tag }}/{{ .ArtifactName }}"
+    commit_author:
+      name: goreleaserbot
+      email: bot@goreleaser.com
+    commit_msg_template: "Krew plugin update for {{ .ProjectName }} version {{ .Tag }}"
+    homepage: "https://github.com/devbytes-cloud/conditioner"
+    description: "Conditioner allows you to add, update, or remove conditions on Kubernetes nodes. It's a handy tool for cluster administrators to manage node status conditions effectively."
+    short_description: "Add, update, or remove conditions on Kubernetes nodes"
+    skip_upload: true
