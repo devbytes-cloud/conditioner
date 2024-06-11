@@ -113,7 +113,7 @@ brews:
 
 krews:
   - name: conditioner
-    url_template: "https://github.com/devbytes-cloud/conditioner/releases/{{ .Tag }}/{{ .ArtifactName }}"
+    url_template: "https://github.com/devbytes-cloud/conditioner/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
     commit_author:
       name: goreleaserbot
       email: bot@goreleaser.com
