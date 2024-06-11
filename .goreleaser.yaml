@@ -98,7 +98,7 @@ brews:
       name: David Dymko
       email: dymkod@gmail.com
 
-    folder: Formula
+    directory: Formula
     homepage: "https://github.com/devbytes-cloud/conditioner"
     description: "Conditioner plugin allows you to add, update, or remove conditions on Kubernetes nodes"
     license: "Apache-2.0 license"
