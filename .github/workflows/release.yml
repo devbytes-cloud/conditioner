@@ -45,3 +45,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GORELEASER_AUTH_TOKEN: ${{ secrets.GORELEASER_AUTH_TOKEN}}
+      - name: Upload conditioner.yaml artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: conditioner-yaml
+          path: dist/krew/conditioner.yaml
