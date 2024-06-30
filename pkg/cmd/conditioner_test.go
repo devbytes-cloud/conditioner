@@ -3,10 +3,11 @@ package cmd
 import (
 	"testing"
 
+	"github.com/devbytes-cloud/conditioner/pkg/config"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
-	corev1 "k8s.io/api/core/v1"
 
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/cli-runtime/pkg/genericiooptions"
 )
 
@@ -22,7 +23,7 @@ func TestComplete(t *testing.T) {
 	c.Flags().String("message", "kubelet is posting ready status", "")
 	c.Flags().Bool("remove", false, "remove the condition") // Make sure to define the 'remove' flag
 
-	err := o.Complete(c, []string{"test-node"})
+	err := o.Complete(c, []string{"test-node"}, &config.Config{})
 	assert.NoError(t, err)
 
 	// Assert the fields are set correctly

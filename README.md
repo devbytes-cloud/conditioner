@@ -112,6 +112,24 @@ Flags:
       --user string                    The name of the kubeconfig user to use
 ```
 
+## Configuration
+
+The application uses a configuration file named `.conditioner.json` located in the user's home directory. This file is automatically created if it does not exist.
+
+The configuration file is in JSON format and contains the following fields:
+
+- `prepend-whoami`: A boolean value that indicates whether to prepend the user's identity to the output. Default value is `false`.
+- `allow-list`: An array of strings that represents a list of allowed entities for the application. Default value is an empty array `[]`.
+
+Here is an example of a configuration file:
+
+```json
+{
+  "prepend-whoami": false,
+  "allow-list": []
+}
+```
+
 
 ### Examples
 
