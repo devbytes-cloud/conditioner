@@ -3,7 +3,9 @@ package cmd
 import (
 	"context"
 	"fmt"
+	"os/user"
 
+	"github.com/devbytes-cloud/conditioner/pkg/config"
 	"github.com/devbytes-cloud/conditioner/pkg/jsonpatch"
 	"github.com/spf13/cobra"
 
@@ -88,9 +90,15 @@ func NewCmdCondition(streams genericiooptions.IOStreams) *cobra.Command {
 			return nil
 		},
 		RunE: func(c *cobra.Command, args []string) error {
-			if err := o.Complete(c, args); err != nil {
+			conf, err := config.Read()
+			if err != nil {
 				return err
 			}
+
+			if err := o.Complete(c, args, conf); err != nil {
+				return err
+			}
+
 			if err := o.Run(); err != nil {
 				return err
 			}
@@ -117,7 +125,7 @@ func NewCmdCondition(streams genericiooptions.IOStreams) *cobra.Command {
 // Complete sets all information required for updating the current context
 // It retrieves the restConfig from the configFlags and creates a new Kubernetes client.
 // It also sets the condition status, reason, message, type, and remove flag from the command flags.
-func (o *ConditionOptions) Complete(cmd *cobra.Command, _ []string) error {
+func (o *ConditionOptions) Complete(cmd *cobra.Command, _ []string, config *config.Config) error {
 	// Get the restConfig from the configFlags
 	restConfig, err := o.configFlags.ToRawKubeConfigLoader().ClientConfig()
 	if err != nil {
@@ -155,11 +163,27 @@ func (o *ConditionOptions) Complete(cmd *cobra.Command, _ []string) error {
 		return err
 	}
 
+	if config.WhoAmI {
+		u, err := user.Current()
+		if err != nil {
+			return err
+		}
+
+		o.condition.Message = fmt.Sprintf("%s: %s", u.Username, o.condition.Message)
+	}
+
 	// Get the type from the command flags and set the condition type
 	conditionType, err := cmd.Flags().GetString("type")
 	if err != nil {
 		return err
 	}
+
+	if len(config.AllowList) != 0 {
+		if ok := allowedType(conditionType, config.AllowList); !ok {
+			return fmt.Errorf("condition %s is not in allow-list %v", conditionType, config.AllowList)
+		}
+	}
+
 	o.condition.Type = corev1.NodeConditionType(conditionType)
 
 	o.remove, err = cmd.Flags().GetBool("remove")
@@ -211,4 +235,14 @@ func findConditionType(conditions []corev1.NodeCondition, conditionType corev1.N
 	}
 
 	return nil, -1
+}
+
+// allowedType checks if a given condition type is in the list of allowed types.
+func allowedType(conditionType string, allowedTypes []string) bool {
+	for _, v := range allowedTypes {
+		if v == conditionType {
+			return true
+		}
+	}
+	return false
 }
