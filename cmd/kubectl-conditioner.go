@@ -5,10 +5,10 @@ import (
 	"os"
 
 	"github.com/devbytes-cloud/conditioner/pkg/cmd"
-	"github.com/spf13/pflag"
-	"k8s.io/cli-runtime/pkg/genericiooptions"
-
 	"github.com/devbytes-cloud/conditioner/pkg/config"
+	"github.com/spf13/pflag"
+
+	"k8s.io/cli-runtime/pkg/genericiooptions"
 )
 
 func init() {
