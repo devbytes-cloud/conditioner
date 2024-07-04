@@ -50,3 +50,5 @@ jobs:
         with:
           name: conditioner-yaml
           path: dist/krew/conditioner.yaml
+      - name: Update new version in krew-index
+        uses: rajatjindal/krew-release-bot@v0.0.46

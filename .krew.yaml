@@ -1,0 +1,46 @@
+apiVersion: krew.googlecontainertools.github.com/v1alpha2
+kind: Plugin
+metadata:
+  name: conditioner
+spec:
+  version: {{ .TagName }}
+  platforms:
+    - bin: kubectl-conditioner.exe
+      {{addURIAndSha "https://github.com/devbytes-cloud/conditioner/releases/download/{{ .TagName }}/conditioner_Windows_x86_64.zip" .TagName | indent 6 }}
+      selector:
+        matchLabels:
+          os: windows
+          arch: amd64
+    - bin: kubectl-conditioner.exe
+      {{addURIAndSha "https://github.com/devbytes-cloud/conditioner/releases/download/{{ .TagName }}/conditioner_Windows_arm64.zip" .TagName | indent 6 }}
+      selector:
+        matchLabels:
+          os: windows
+          arch: arm64
+    - bin: kubectl-conditioner
+      {{addURIAndSha "https://github.com/devbytes-cloud/conditioner/releases/download/{{ .TagName }}/conditioner_Linux_x86_64.tar.gz" .TagName | indent 6 }}
+      selector:
+        matchLabels:
+          os: linux
+          arch: amd64
+    - bin: kubectl-conditioner
+      {{addURIAndSha "https://github.com/devbytes-cloud/conditioner/releases/download/{{ .TagName }}/conditioner_Linux_arm64.tar.gz" .TagName | indent 6 }}
+      selector:
+        matchLabels:
+          os: linux
+          arch: arm64
+    - bin: kubectl-conditioner
+      {{addURIAndSha "https://github.com/devbytes-cloud/conditioner/releases/download/{{ .TagName }}/conditioner_Darwin_x86_64.tar.gz" .TagName | indent 6 }}
+      selector:
+        matchLabels:
+          os: darwin
+          arch: amd64
+    - bin: kubectl-conditioner
+      {{addURIAndSha "https://github.com/devbytes-cloud/conditioner/releases/download/{{ .TagName }}/conditioner_Darwin_arm64.tar.gz" .TagName | indent 6 }}
+      selector:
+        matchLabels:
+          os: darwin
+          arch: arm64
+  shortDescription: Add, update, or remove conditions on Kubernetes nodes
+  homepage: https://github.com/devbytes-cloud/conditioner
+  description: Conditioner allows you to add, update, or remove conditions on Kubernetes nodes. It's a handy tool for cluster administrators to manage node status conditions effectively.
