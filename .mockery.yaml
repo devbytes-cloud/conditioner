@@ -1,0 +1,8 @@
+dir: "pkg/mocks"
+outpkg: "mocks"
+with-expecter: true
+packages:
+  github.com/devbytes-cloud/conditioner/pkg/config:
+    interfaces:
+      Filesystem:
+
