@@ -52,6 +52,18 @@ docker run devbytescloud/conditioner conditioner
 
 The images can be found https://hub.docker.com/repository/docker/devbytescloud/conditioner
 
+## Installation via Krew
+
+Krew is a plugin manager for `kubectl`, which allows you to install `conditioner` easily. Follow these steps to install `conditioner` using Krew:
+
+1. Ensure you have Krew installed. If not, follow the [Krew installation instructions](https://krew.sigs.k8s.io/docs/user-guide/setup/install/).
+
+2. Run the following command to install `conditioner`:
+
+```shell
+kubectl krew install conditioner
+```
+
 ## Usage
 
 The general syntax for using the plugin is as follows:
