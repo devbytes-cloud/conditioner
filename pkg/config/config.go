@@ -22,13 +22,13 @@ type Config struct {
 
 // Exists checks if the configuration file exists.
 // It returns a boolean indicating the existence of the file and any error encountered.
-func Exists() (bool, error) {
+func Exists(fs Filesystem) (bool, error) {
 	path, err := getPath()
 	if err != nil {
 		return false, err
 	}
 
-	if _, err := os.Stat(path); err == nil {
+	if _, err := fs.Stat(path); err == nil {
 		return true, nil
 	} else if errors.Is(err, os.ErrNotExist) {
 		return false, nil
@@ -58,20 +58,14 @@ func Write() error {
 	return os.WriteFile(fileName, confJson, 0o644)
 }
 
-// getPath expands the configuration file name to its full path.
-// It returns the full path and any error encountered.
-func getPath() (string, error) {
-	return homedir.Expand(configName)
-}
-
 // Read is a placeholder function for reading the configuration file.
-func Read() (*Config, error) {
+func Read(fs Filesystem) (*Config, error) {
 	path, err := getPath()
 	if err != nil {
 		return nil, err
 	}
 
-	byteConfig, err := os.ReadFile(path)
+	byteConfig, err := fs.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
@@ -81,4 +75,10 @@ func Read() (*Config, error) {
 		return nil, err
 	}
 	return config, nil
+}
+
+// getPath expands the configuration file name to its full path.
+// It returns the full path and any error encountered.
+func getPath() (string, error) {
+	return homedir.Expand(configName)
 }
