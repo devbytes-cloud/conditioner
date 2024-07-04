@@ -12,7 +12,8 @@ import (
 )
 
 func init() {
-	exists, err := config.Exists()
+	fs := config.FS{}
+	exists, err := config.Exists(fs)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)

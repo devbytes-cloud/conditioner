@@ -90,7 +90,8 @@ func NewCmdCondition(streams genericiooptions.IOStreams) *cobra.Command {
 			return nil
 		},
 		RunE: func(c *cobra.Command, args []string) error {
-			conf, err := config.Read()
+			fs := config.FS{}
+			conf, err := config.Read(fs)
 			if err != nil {
 				return err
 			}
