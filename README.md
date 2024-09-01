@@ -131,17 +131,31 @@ The application uses a configuration file named `.conditioner.json` located in t
 The configuration file is in JSON format and contains the following fields:
 
 - `prepend-whoami`: A boolean value that indicates whether to prepend the user's identity to the output. Default value is `false`.
-- `allow-list`: An array of strings that represents a list of allowed entities for the application. Default value is an empty array `[]`.
+- `allow-list`: An array of strings that represents a list of allowed conditions that can be used with conditioner. Default value is an empty array `[]`.
 
 Here is an example of a configuration file:
 
 ```json
 {
-  "prepend-whoami": false,
-  "allow-list": []
+  "prepend-whoami": true,
+  "allow-list": ["allowed-condition-1"]
 }
 ```
 
+This json configuration will only allowed `allowed-condition-1` to be used.
+```sh
+☁  ~  conditioner np-vm-02 --type random-condition --status false --reason conditionerExample --message "readme example"
+Error: condition random-condition is not in allow-list [allowed-condition-1]
+
+☁  ~  conditioner np-vm-02 --type allowed-condition-1 --status false --reason conditionerExample --message "readme example"
+condition status allowed-condition-1 has been added on node np-vm-02
+````
+
+The `prepend-whoami` will append the current user to the `message`
+
+```sh
+allowed-condition-1   False   Sun, 01 Sep 2024 07:21:47 -0400   Sun, 01 Sep 2024 07:21:47 -0400   conditionerExample           ddymko: readme example
+```
 
 ### Examples
 
