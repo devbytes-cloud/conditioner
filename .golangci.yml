@@ -1,6 +1,11 @@
 # https://golangci-lint.run/usage/configuration/
 # https://golangci-lint.run/usage/linters/
+version: "2"
 linters:
+  enable:
+    - gocyclo
+
+formatters:
   enable:
     - gofumpt
     - goimports
