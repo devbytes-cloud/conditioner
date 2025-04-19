@@ -146,12 +146,14 @@ func (o *ConditionOptions) Complete(cmd *cobra.Command, _ []string, config *conf
 		return err
 	}
 
-	if status == "true" {
+	switch status {
+	case "true":
 		o.condition.Status = corev1.ConditionTrue
-	} else if status == "false" {
+	case "false":
 		o.condition.Status = corev1.ConditionFalse
-	} else {
+	default:
 		o.condition.Status = corev1.ConditionUnknown
+
 	}
 
 	o.condition.Reason, err = cmd.Flags().GetString("reason")
