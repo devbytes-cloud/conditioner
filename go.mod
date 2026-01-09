@@ -7,7 +7,7 @@ require (
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/pflag v1.0.7
 	github.com/stretchr/testify v1.11.1
-	k8s.io/api v0.34.1
+	k8s.io/api v0.35.0
 	k8s.io/apimachinery v0.34.1
 	k8s.io/cli-runtime v0.34.1
 	k8s.io/client-go v0.34.1
