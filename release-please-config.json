@@ -1,0 +1,14 @@
+{
+  "packages": {
+    ".": {
+      "changelog-sections": [
+        {"type": "feat", "section": "Features"},
+        {"type": "fix", "section": "Bug Fixes"},
+        {"type": "perf", "section": "Performance Improvements"},
+        {"type": "deps", "section": "Dependencies", "hidden": false},
+        {"type": "chore", "section": "Dependencies", "hidden": false},
+        {"type": "build", "section": "Dependencies", "hidden": false}
+      ]
+    }
+  }
+}
