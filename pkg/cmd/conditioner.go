@@ -1,9 +1,15 @@
 package cmd
 
 import (
+	"bufio"
 	"context"
+	"errors"
 	"fmt"
+	"os"
 	"os/user"
+	"strings"
+
+	"golang.org/x/term"
 
 	"github.com/devbytes-cloud/conditioner/pkg/config"
 	"github.com/devbytes-cloud/conditioner/pkg/jsonpatch"
@@ -28,10 +34,13 @@ kubectl conditioner my-node --type DiskPressure --status false --reason KubeletH
 
 # Remove a condition from a node
 kubectl conditioner my-node --type NetworkUnavailable --remove
+
+# Apply a condition to all nodes by piping kubectl output directly
+kubectl get nodes -o name | kubectl conditioner --type Ready --status true --reason KubeletReady --message "kubelet is posting ready status"
 `
 
 	long = `The 'conditioner' command allows you to add, update, or remove status conditions on nodes. 
-You need to provide the node name as an argument and use flags to specify the details of the condition. 
+You need to provide one or more node names as arguments and use flags to specify the details of the condition. 
 The '--type' flag is required and it specifies the type of condition you wish to interact with. 
 The '--status' flag sets the status for the specific status condition and it can be 'true', 'false', or left blank for 'unknown'. 
 The '--reason' flag sets the reason for the specific status condition. 
@@ -50,8 +59,8 @@ type ConditionOptions struct {
 	// IOStreams provides the standard names for iostreams. This is useful for embedding and for unit testing.
 	genericiooptions.IOStreams
 
-	// nodeName is the name of the node that the command is being run against.
-	nodeName string
+	// nodeNames are the names of the nodes that the command is being run against.
+	nodeNames []string
 
 	// remove is a boolean that indicates whether the condition should be removed.
 	remove bool
@@ -71,23 +80,31 @@ func NewConditionOptions(streams genericiooptions.IOStreams) *ConditionOptions {
 	}
 }
 
+// NewCmdCondition returns a cobra.Command that implements the conditioner subcommand.
+// It wires up flags, PreRunE (node name collection from args and stdin), and RunE
+// (config loading, completion, and execution).
 func NewCmdCondition(streams genericiooptions.IOStreams) *cobra.Command {
 	o := NewConditionOptions(streams)
 
 	cmd := &cobra.Command{
-		Use:          "conditioner [node name] [flags]",
+		Use:          "conditioner [node name ...] [flags]",
 		Short:        "Manipulate status conditions on a specified node.",
 		Long:         long,
 		Example:      example,
 		SilenceUsage: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			o.args = args
-			if len(o.args) != 1 {
-				return fmt.Errorf("must provide a node to be conditioned")
+
+			stdinNames, err := o.readStdinNames()
+			if err != nil {
+				return err
 			}
 
-			o.nodeName = o.args[0]
-			return nil
+			merged := make([]string, 0, len(stdinNames)+len(args))
+			merged = append(merged, stdinNames...)
+			merged = append(merged, args...)
+
+			return o.setNodeNames(merged)
 		},
 		RunE: func(c *cobra.Command, args []string) error {
 			fs := config.FS{}
@@ -121,6 +138,27 @@ func NewCmdCondition(streams genericiooptions.IOStreams) *cobra.Command {
 	o.configFlags.AddFlags(cmd.Flags())
 
 	return cmd
+}
+
+// setNodeNames validates and normalizes the provided node name arguments, storing the
+// results in o.nodeNames. It returns an error if no names are supplied or if any
+// name is empty after normalization.
+func (o *ConditionOptions) setNodeNames(args []string) error {
+	if len(args) == 0 {
+		return fmt.Errorf("must provide at least one node to be conditioned")
+	}
+
+	o.nodeNames = make([]string, 0, len(args))
+	for _, rawName := range args {
+		nodeName := normalizeNodeName(rawName)
+		if nodeName == "" {
+			return fmt.Errorf("node name cannot be empty")
+		}
+
+		o.nodeNames = append(o.nodeNames, nodeName)
+	}
+
+	return nil
 }
 
 // Complete sets all information required for updating the current context
@@ -199,7 +237,26 @@ func (o *ConditionOptions) Complete(cmd *cobra.Command, _ []string, config *conf
 
 // Run handles the condition applying or removal on nodes.
 func (o *ConditionOptions) Run() error {
-	node, err := o.client.CoreV1().Nodes().Get(context.Background(), o.nodeName, metav1.GetOptions{})
+	var errs []error
+
+	for _, nodeName := range o.nodeNames {
+		if err := o.runForNode(nodeName); err != nil {
+			errs = append(errs, fmt.Errorf("%s: %w", nodeName, err))
+		}
+	}
+
+	if len(errs) > 0 {
+		return errors.Join(errs...)
+	}
+
+	return nil
+}
+
+// runForNode applies or removes the configured condition on a single node. It fetches
+// the node from the Kubernetes API, generates the appropriate JSON Patch operation,
+// applies it to the node's status, and prints a confirmation message.
+func (o *ConditionOptions) runForNode(nodeName string) error {
+	node, err := o.client.CoreV1().Nodes().Get(context.Background(), nodeName, metav1.GetOptions{})
 	if err != nil {
 		return err
 	}
@@ -225,6 +282,39 @@ func (o *ConditionOptions) Run() error {
 	fmt.Printf("condition status %s has been %sed on node %s\n", o.condition.Type, patch.OP, node.Name)
 
 	return nil
+}
+
+// readStdinNames reads node names from o.In when it is not a TTY. Each non-empty line
+// is returned as a raw name; normalization happens later in setNodeNames. It returns
+// nil, nil when o.In is an interactive terminal, so interactive invocations are not
+// blocked waiting for input.
+func (o *ConditionOptions) readStdinNames() ([]string, error) {
+	f, ok := o.In.(*os.File)
+	if ok && term.IsTerminal(int(f.Fd())) {
+		return nil, nil
+	}
+
+	var names []string
+	scanner := bufio.NewScanner(o.In)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		if line != "" {
+			names = append(names, line)
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		return nil, fmt.Errorf("reading stdin: %w", err)
+	}
+	return names, nil
+}
+
+// normalizeNodeName strips whitespace and the "node/" or "nodes/" prefixes that
+// kubectl outputs when using -o name (e.g. "node/worker-01" → "worker-01").
+func normalizeNodeName(node string) string {
+	node = strings.TrimSpace(node)
+	node = strings.TrimPrefix(node, "node/")
+	node = strings.TrimPrefix(node, "nodes/")
+	return node
 }
 
 // findConditionType is a function that searches for a specific condition type in a slice of NodeCondition objects.

@@ -69,13 +69,13 @@ kubectl krew install conditioner
 The general syntax for using the plugin is as follows:
 
 ```
-kubectl conditioner [NODE_NAME] [FLAGS]
+kubectl conditioner [NODE_NAME ...] [FLAGS]
 ```
 
 ```shell
 kubectl conditioner -h
 The 'condition' command allows you to add, update, or remove status conditions on nodes.
-You need to provide the node name as an argument and use flags to specify the details of the condition.
+You need to provide one or more node names as arguments and use flags to specify the details of the condition.
 The '--type' flag is required and it specifies the type of condition you wish to interact with.
 The '--status' flag sets the status for the specific status condition and it can be 'true', 'false', or left blank for 'unknown'.
 The '--reason' flag sets the reason for the specific status condition.
@@ -83,7 +83,7 @@ The '--message' flag sets the message for the specific status condition.
 If you wish to remove the condition from the node entirely, use the '--remove' flag.
 
 Usage:
-  conditioner [node name] [flags]
+  conditioner [node name ...] [flags]
 
 Examples:
 
@@ -95,6 +95,9 @@ kubectl conditioner my-node --type DiskPressure --status false --reason KubeletH
 
 # Remove a condition from a node
 kubectl conditioner my-node --type NetworkUnavailable --remove
+
+# Apply a condition to all nodes by piping kubectl output directly
+kubectl get nodes -o name | kubectl conditioner --type Ready --status true --reason KubeletReady --message "kubelet is posting ready status"
 
 
 Flags:
@@ -175,6 +178,12 @@ allowed-condition-1   False   Sun, 01 Sep 2024 07:21:47 -0400   Sun, 01 Sep 2024
 
   ```
   kubectl conditioner my-node --type NetworkUnavailable --remove
+  ```
+
+- **Apply a condition to all nodes** by piping kubectl output directly:
+
+  ```
+  kubectl get nodes -o name | kubectl conditioner --type Ready --status true --reason KubeletReady --message "kubelet is posting ready status"
   ```
 
 ### Flags
