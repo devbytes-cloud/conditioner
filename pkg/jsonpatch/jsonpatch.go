@@ -57,7 +57,7 @@ func GenerateJsonPath(index int, remove bool, oldConditions, newConditions *core
 	// If the index is not -1, update the value of the JsonPatch object based on the oldConditions parameter.
 	if index != -1 {
 		if newConditions.Message == "" {
-			jsonPatch.Value.Message = oldConditions.Reason
+			jsonPatch.Value.Message = oldConditions.Message
 		}
 
 		if newConditions.Reason == "" {
