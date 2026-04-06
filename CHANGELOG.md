@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.0](https://github.com/devbytes-cloud/conditioner/compare/v1.5.1...v1.6.0) (2026-04-06)
+
+
+### Features
+
+* support xargs node names ([#208](https://github.com/devbytes-cloud/conditioner/issues/208)) ([66c8041](https://github.com/devbytes-cloud/conditioner/commit/66c80416844835745209670cb798a6a11a9baf42))
+
+
+### Bug Fixes
+
+* json path message ([#214](https://github.com/devbytes-cloud/conditioner/issues/214)) ([220805f](https://github.com/devbytes-cloud/conditioner/commit/220805fee461bba1301ee5ee0eeef91bf1698ddb))
+
 ## [1.5.1](https://github.com/devbytes-cloud/conditioner/compare/v1.5.0...v1.5.1) (2026-02-18)
 
 
