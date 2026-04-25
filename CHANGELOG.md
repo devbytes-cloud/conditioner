@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/devbytes-cloud/conditioner/compare/v1.6.0...v1.6.1) (2026-04-25)
+
+
+### Miscellaneous Chores
+
+* release v1.6.1 ([2a249d8](https://github.com/devbytes-cloud/conditioner/commit/2a249d8e35c39b8ac475562e7fdbf88666a0b94d))
+
 ## [1.6.0](https://github.com/devbytes-cloud/conditioner/compare/v1.5.1...v1.6.0) (2026-04-06)
 
 
