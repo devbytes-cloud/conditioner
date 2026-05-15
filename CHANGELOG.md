@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/devbytes-cloud/conditioner/compare/v1.6.1...v1.6.2) (2026-05-15)
+
+
+### Dependencies
+
+* update alpine/kubectl docker tag to v1.36.0 ([#225](https://github.com/devbytes-cloud/conditioner/issues/225)) ([70d169d](https://github.com/devbytes-cloud/conditioner/commit/70d169d07237485d5f4ee09384c4027bf331ca51))
+
 ## [1.6.1](https://github.com/devbytes-cloud/conditioner/compare/v1.6.0...v1.6.1) (2026-04-25)
 
 
