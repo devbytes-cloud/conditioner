@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.6.4](https://github.com/devbytes-cloud/conditioner/compare/v1.6.3...v1.6.4) (2026-07-10)
+
+
+### Dependencies
+
+* update actions/checkout action to v7 ([#245](https://github.com/devbytes-cloud/conditioner/issues/245)) ([b89a5cf](https://github.com/devbytes-cloud/conditioner/commit/b89a5cff87a03f00a8c192bf23ac6bd5bd289815))
+* update alpine/kubectl docker tag to v1.36.2 ([#244](https://github.com/devbytes-cloud/conditioner/issues/244)) ([e9a29c7](https://github.com/devbytes-cloud/conditioner/commit/e9a29c7aeb3e79ffda8de76349116d4cef3e0240))
+* update module golang.org/x/term to v0.45.0 ([#239](https://github.com/devbytes-cloud/conditioner/issues/239)) ([e73cfdf](https://github.com/devbytes-cloud/conditioner/commit/e73cfdf3b63b312aeb67e8499351651ad1db6a17))
+
 ## [1.6.3](https://github.com/devbytes-cloud/conditioner/compare/v1.6.2...v1.6.3) (2026-05-16)
 
 
