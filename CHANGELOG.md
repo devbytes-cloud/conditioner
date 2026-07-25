@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.6.5](https://github.com/devbytes-cloud/conditioner/compare/v1.6.4...v1.6.5) (2026-07-25)
+
+
+### Dependencies
+
+* update actions/setup-go action to v7 ([#249](https://github.com/devbytes-cloud/conditioner/issues/249)) ([6c67f9b](https://github.com/devbytes-cloud/conditioner/commit/6c67f9b4392ec07edcadfdeb84f108367f43a64c))
+* update alpine/kubectl docker tag to v1.36.3 ([#255](https://github.com/devbytes-cloud/conditioner/issues/255)) ([a6460c8](https://github.com/devbytes-cloud/conditioner/commit/a6460c87ae2e6c591442ca33175dadd319ff518a))
+* update module k8s.io/cli-runtime to v0.36.3 ([#252](https://github.com/devbytes-cloud/conditioner/issues/252)) ([d3742c7](https://github.com/devbytes-cloud/conditioner/commit/d3742c76a7c60647891579690f14ff8619ee7541))
+* update module k8s.io/client-go to v0.36.3 ([#254](https://github.com/devbytes-cloud/conditioner/issues/254)) ([49397c6](https://github.com/devbytes-cloud/conditioner/commit/49397c65d2d351e6a7588f311f4dc4d816f17d3b))
+
 ## [1.6.4](https://github.com/devbytes-cloud/conditioner/compare/v1.6.3...v1.6.4) (2026-07-10)
 
 
