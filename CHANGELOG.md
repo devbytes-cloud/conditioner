@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.6](https://github.com/devbytes-cloud/conditioner/compare/v1.6.5...v1.6.6) (2026-09-16)
+
+
+### Dependencies
+
+* update alpine/kubectl docker tag to v1.37.0 ([#261](https://github.com/devbytes-cloud/conditioner/issues/261)) ([b0ec779](https://github.com/devbytes-cloud/conditioner/commit/b0ec7791b47d8068ffd1564c0b49a6839c5a3853))
+* update module github.com/stretchr/testify to v1.12.1 ([#256](https://github.com/devbytes-cloud/conditioner/issues/256)) ([dc97541](https://github.com/devbytes-cloud/conditioner/commit/dc97541eb5d56b06dd9621623d530826c694eb46))
+
 ## [1.6.5](https://github.com/devbytes-cloud/conditioner/compare/v1.6.4...v1.6.5) (2026-07-25)
 
 
