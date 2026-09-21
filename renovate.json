@@ -1,0 +1,6 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>devbytes-cloud/renovate-config#v0.1.0"
+  ]
+}
