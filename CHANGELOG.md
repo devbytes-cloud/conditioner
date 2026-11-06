@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.7.0](https://github.com/devbytes-cloud/conditioner/compare/v1.6.6...v1.7.0) (2026-11-06)
+
+
+### Features
+
+* **deps:** update go module directive (1.26.0 ➔ 1.27.3) ([#276](https://github.com/devbytes-cloud/conditioner/issues/276)) ([e792cff](https://github.com/devbytes-cloud/conditioner/commit/e792cff6727a3fc2fa9953220388ee597022b29d))
+
+
+### Bug Fixes
+
+* **deps:** update kubernetes monorepo (v0.37.0 ➔ v0.37.2) ([#270](https://github.com/devbytes-cloud/conditioner/issues/270)) ([7e769bb](https://github.com/devbytes-cloud/conditioner/commit/7e769bb74c825726a3dfc6775ceea4dd52e92b66))
+* **release-please:** update config to show ci changes ([4bec901](https://github.com/devbytes-cloud/conditioner/commit/4bec901dcd9dbfcf498ce9415fe6f5454cca6c58))
+
+
+### CI
+
+* **github-action:** update action actions/upload-artifact (v7.0.0 ➔ v7.0.2) ([#268](https://github.com/devbytes-cloud/conditioner/issues/268)) ([3bbdd19](https://github.com/devbytes-cloud/conditioner/commit/3bbdd19a5c0814d67a1dcfaafa328b86b267311f))
+* **github-action:** update action docker/login-action (v4.0.0 ➔ v4.8.0) ([#271](https://github.com/devbytes-cloud/conditioner/issues/271)) ([1ef2e88](https://github.com/devbytes-cloud/conditioner/commit/1ef2e88d05b19b91004d3b0134541479b98c7ee0))
+
 ## [1.6.6](https://github.com/devbytes-cloud/conditioner/compare/v1.6.5...v1.6.6) (2026-09-16)
 
 
