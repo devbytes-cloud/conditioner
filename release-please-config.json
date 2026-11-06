@@ -6,7 +6,8 @@
         {"type": "feat", "section": "Features"},
         {"type": "fix", "section": "Bug Fixes"},
         {"type": "perf", "section": "Performance Improvements"},
-        {"type": "deps", "section": "Dependencies", "hidden": false}
+        {"type": "deps", "section": "Dependencies", "hidden": false},
+        {"type": "ci", "section": "CI", "hidden": false}
       ]
     }
   }
