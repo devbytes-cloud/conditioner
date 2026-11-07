@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.7.0](https://github.com/devbytes-cloud/conditioner/compare/v1.6.6...v1.7.0) (2026-11-07)
+
+
+### Features
+
+* **deps:** update go module directive (1.26.0 ➔ 1.27.3) ([#276](https://github.com/devbytes-cloud/conditioner/issues/276)) ([e792cff](https://github.com/devbytes-cloud/conditioner/commit/e792cff6727a3fc2fa9953220388ee597022b29d))
+
+
+### Bug Fixes
+
+* **container:** update image alpine/kubectl (1.37.0 ➔ 1.37.2) ([#269](https://github.com/devbytes-cloud/conditioner/issues/269)) ([b54a877](https://github.com/devbytes-cloud/conditioner/commit/b54a87794e28b0a6a3c68343ecfe6dd9650ca93b))
+* **deps:** update kubernetes monorepo (v0.37.0 ➔ v0.37.2) ([#270](https://github.com/devbytes-cloud/conditioner/issues/270)) ([7e769bb](https://github.com/devbytes-cloud/conditioner/commit/7e769bb74c825726a3dfc6775ceea4dd52e92b66))
+* **release-please:** update config to show ci changes ([4bec901](https://github.com/devbytes-cloud/conditioner/commit/4bec901dcd9dbfcf498ce9415fe6f5454cca6c58))
+
+
+### CI
+
+* **github-action:** update action actions/checkout (v7.0.0 ➔ v7.0.1) ([#267](https://github.com/devbytes-cloud/conditioner/issues/267)) ([e3f484e](https://github.com/devbytes-cloud/conditioner/commit/e3f484ec5922d0be5fb1c05dea012a28134ef68e))
+* **github-action:** update action actions/upload-artifact (v7.0.0 ➔ v7.0.2) ([#268](https://github.com/devbytes-cloud/conditioner/issues/268)) ([3bbdd19](https://github.com/devbytes-cloud/conditioner/commit/3bbdd19a5c0814d67a1dcfaafa328b86b267311f))
+* **github-action:** update action docker/login-action (v4.0.0 ➔ v4.8.0) ([#271](https://github.com/devbytes-cloud/conditioner/issues/271)) ([1ef2e88](https://github.com/devbytes-cloud/conditioner/commit/1ef2e88d05b19b91004d3b0134541479b98c7ee0))
+* **github-action:** update action goreleaser/goreleaser-action (v7.0.0 ➔ v7.3.0) ([#275](https://github.com/devbytes-cloud/conditioner/issues/275)) ([7b5d584](https://github.com/devbytes-cloud/conditioner/commit/7b5d5843d9c3cbabc92b2a0f97981ad08b87aad1))
+
 ## [1.6.6](https://github.com/devbytes-cloud/conditioner/compare/v1.6.5...v1.6.6) (2026-09-16)
 
 
